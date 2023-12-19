@@ -30,6 +30,8 @@
     "@nestjs/typeorm": "^10.0.1",
     "cache-manager": "^5.3.1",
     "cache-manager-redis-store": "^3.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "mysql2": "^3.6.5",
     "nodemailer": "^6.9.7",
     "redis": "^4.6.12",
