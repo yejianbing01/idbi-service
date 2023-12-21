@@ -1,0 +1,1 @@
+type MetaDataKey = 'require-login';

@@ -1,6 +1,7 @@
 import { RoleDO } from 'src/module/role/domain/role.entity';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { BaseDO } from 'src/module/base/base.entity';
+import { md5 } from 'src/lib/utils';
 
 export class UserDO extends BaseDO {
   private id: number;
@@ -17,6 +18,15 @@ export class UserDO extends BaseDO {
   private createTime?: string;
   private updateTime?: Date;
   private roles?: RoleDO[];
+
+  /**
+   * 密码加密
+   * @returns
+   */
+  md5Password() {
+    this.password = md5(this.password);
+    return this;
+  }
 
   /**
    * 更新用户

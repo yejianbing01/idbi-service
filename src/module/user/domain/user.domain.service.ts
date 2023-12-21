@@ -4,6 +4,7 @@ import { UserDO } from './user.entity';
 import { UserRepository } from 'src/module/user/domain/repository/user.repository';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { FindUserDto } from '../dto/find-user.dto';
+import { GetUserDto } from '../dto/get-user.dto';
 
 @Injectable()
 export class UserDomainService {
@@ -17,6 +18,7 @@ export class UserDomainService {
       nickname: createUserDto.nickname,
     });
     const user = UserDO.create<UserDO>(UserDO, createUserDto);
+    user.md5Password();
     await this.userRepository.save(user);
     return '创建成功';
   }
@@ -54,8 +56,8 @@ export class UserDomainService {
     return this.userRepository.findMany(params);
   }
 
-  async getUser(id: number) {
-    return this.userRepository.findOne({ id });
+  async getUser(params: GetUserDto) {
+    return this.userRepository.findOne(params);
   }
 
   private async checkExist(params: {

@@ -3,6 +3,7 @@ import { CreateUserDto } from 'src/module/user/dto/create-user.dto';
 import { UserDomainService } from 'src/module/user/domain/user.domain.service';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { FindUserDto } from '../dto/find-user.dto';
+import { GetUserDto } from '../dto/get-user.dto';
 
 @Injectable()
 export class UserService {
@@ -28,7 +29,7 @@ export class UserService {
     return this.userDomainService.findUsers(params);
   }
 
-  async getUser(id: number) {
-    return this.userDomainService.getUser(id);
+  async getUser(params: GetUserDto) {
+    return this.userDomainService.getUser(params);
   }
 }

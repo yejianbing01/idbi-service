@@ -7,6 +7,8 @@ import { UserModule } from './module/user/user.module';
 import { MyCacheModule } from './cache/cache.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './module/auth/auth.module';
+import { LoginGuard } from './lib/login.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -51,8 +53,27 @@ import { AuthModule } from './module/auth/auth.module';
         };
       },
     }),
+    JwtModule.registerAsync({
+      global: true,
+      inject: [ConfigService],
+      useFactory(configService: ConfigService) {
+        return {
+          secret: configService.get('jwt_secret'),
+          signOptions: {
+            expiresIn:
+              configService.get('jwt_access_token_expires_time') || '30m', // 有效期30分钟
+          },
+        };
+      },
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: LoginGuard,
+    },
+  ],
 })
 export class AppModule {}
