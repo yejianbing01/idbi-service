@@ -3,12 +3,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
+import { UserModule } from './module/user/user.module';
 import { MyCacheModule } from './cache/cache.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './module/auth/auth.module';
 
 @Module({
   imports: [
+    MyCacheModule,
+    UserModule,
+    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: 'src/.env',
@@ -37,17 +41,16 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           database: configService.get('mysql_server_database_common'),
           synchronize: true,
           logging: false,
-          entities: [],
+          autoLoadEntities: true,
           poolSize: 10,
           connectorPackage: 'mysql2',
+          // timezone: '+08:00',
           extra: {
             authPlugin: 'sha256_password',
           },
         };
       },
     }),
-    UserModule,
-    MyCacheModule,
   ],
   controllers: [AppController],
   providers: [AppService],

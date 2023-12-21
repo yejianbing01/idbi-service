@@ -7,7 +7,7 @@ export class CacheService {
   @Inject(CACHE_MANAGER)
   private cacheManager: Cache;
 
-  async get(key: string) {
+  async get<T>(key: string): Promise<T> {
     return await this.cacheManager.get(key);
   }
 

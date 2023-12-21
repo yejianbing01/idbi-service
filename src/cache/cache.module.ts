@@ -1,10 +1,11 @@
 import type { RedisClientOptions } from 'redis';
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-store';
 import { ConfigService } from '@nestjs/config';
 import { CacheService } from './cache.service';
 
+@Global()
 @Module({
   providers: [CacheService],
   imports: [
