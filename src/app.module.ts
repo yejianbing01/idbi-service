@@ -9,9 +9,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './module/auth/auth.module';
 import { LoginGuard } from './lib/login.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { MyToolModule } from './module/tool/tool.module';
 
 @Module({
   imports: [
+    MyToolModule.register({ name: 'idbi' }),
     MyCacheModule,
     UserModule,
     AuthModule,
