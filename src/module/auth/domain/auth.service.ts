@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/module/user/domain/user.service';
 import { RegisterUserDto } from '../dto/register-user.dto';
 import { CacheService } from 'src/cache/cache.service';
@@ -12,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { md5 } from 'src/lib/utils';
 import { ToolEmailService } from 'src/module/tool/tool-email.service';
 import { ConfigService } from '@nestjs/config';
+import { BusinessException } from 'src/lib/business.exception';
 
 @Injectable()
 export class AuthService {
@@ -29,10 +25,10 @@ export class AuthService {
     );
 
     if (!cacheCaptcha) {
-      throw new HttpException('验证码已过期', HttpStatus.BAD_REQUEST);
+      BusinessException.throw('验证码已过期');
     }
     if (cacheCaptcha !== registerUserDto.captcha) {
-      throw new HttpException('验证码不正确', HttpStatus.BAD_REQUEST);
+      BusinessException.throw('验证码不正确');
     }
     await this.userService.create(registerUserDto);
     return '注册成功';
@@ -41,10 +37,10 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto) {
     const user = await this.userService.getUser({ email: loginUserDto.email });
     if (!user) {
-      throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
+      BusinessException.throw('用户不存在');
     }
     if (user.password !== md5(loginUserDto.password)) {
-      throw new HttpException('用户名或密码不正确', HttpStatus.BAD_REQUEST);
+      BusinessException.throw('用户名或密码不正确');
     }
 
     return {
@@ -71,7 +67,7 @@ export class AuthService {
         refresh_token,
       };
     } catch (e) {
-      throw new UnauthorizedException('token 已失效，请重新登录');
+      BusinessException.throw('token 已失效，请重新登录');
     }
   }
 

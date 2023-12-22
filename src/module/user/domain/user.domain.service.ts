@@ -1,10 +1,11 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserDO } from './user.entity';
 import { UserRepository } from 'src/module/user/domain/repository/user.repository';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { FindUserDto } from '../dto/find-user.dto';
 import { GetUserDto } from '../dto/get-user.dto';
+import { BusinessException } from 'src/lib/business.exception';
 
 @Injectable()
 export class UserDomainService {
@@ -30,7 +31,7 @@ export class UserDomainService {
       nickname: updateUserDto.nickname,
     });
     if (existed) {
-      throw new HttpException('邮箱已存在', HttpStatus.BAD_REQUEST);
+      BusinessException.throw('邮箱已存在');
     }
     const userDO = await this.rebuildUserById(id);
     userDO.update(updateUserDto);
@@ -70,13 +71,13 @@ export class UserDomainService {
     if (username) {
       const existed = await this.userRepository.checkExist({ username, id });
       if (existed) {
-        throw new HttpException('用户名已存在', HttpStatus.BAD_REQUEST);
+        BusinessException.throw('用户名已存在');
       }
     }
     if (email) {
       const existed = await this.userRepository.checkExist({ email, id });
       if (existed) {
-        throw new HttpException('邮箱已存在', HttpStatus.BAD_REQUEST);
+        BusinessException.throw('邮箱已存在');
       }
     }
   }
@@ -89,7 +90,7 @@ export class UserDomainService {
   private async rebuildUserById(id: number) {
     const userPO = await this.userRepository.findOne({ id });
     if (!userPO) {
-      throw new Error('用户不存在');
+      BusinessException.throw('用户不存在');
     }
     const userDO = UserDO.create<UserDO>(UserDO, userPO);
     return userDO;
