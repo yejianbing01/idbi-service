@@ -6,7 +6,8 @@ export class AppService {
   @Inject(CacheService)
   private cacheMange: CacheService;
 
-  getHello(): string {
+  getHello(name: string): string {
+    console.log('hello', name);
     return 'Hello World!';
   }
 

@@ -1,22 +1,24 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './module/user/user.module';
 import { MyCacheModule } from './cache/cache.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AuthModule } from './module/auth/auth.module';
 import { LoginGuard } from './lib/login.guard';
-import { APP_GUARD } from '@nestjs/core';
+import { UserModule } from './module/user/user.module';
+import { AuthModule } from './module/auth/auth.module';
 import { MyToolModule } from './module/tool/tool.module';
+import { TaskModule } from './module/task/task.module';
 
 @Module({
   imports: [
-    MyToolModule.register({ name: 'idbi' }),
     MyCacheModule,
     UserModule,
     AuthModule,
+    TaskModule,
+    MyToolModule.register({ name: 'idbi' }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: 'src/.env',
@@ -77,5 +79,6 @@ import { MyToolModule } from './module/tool/tool.module';
       useClass: LoginGuard,
     },
   ],
+  exports: [AppService],
 })
 export class AppModule {}

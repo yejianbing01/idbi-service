@@ -6,11 +6,15 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { FindUserDto } from '../dto/find-user.dto';
 import { GetUserDto } from '../dto/get-user.dto';
 import { BusinessException } from 'src/lib/business.exception';
+import { UserFactory } from './user.factory';
 
 @Injectable()
 export class UserDomainService {
   @Inject(UserRepository)
   private userRepository: UserRepository;
+
+  @Inject(UserFactory)
+  private userFactory: UserFactory;
 
   async create(createUserDto: CreateUserDto) {
     await this.checkExist({
@@ -18,9 +22,10 @@ export class UserDomainService {
       username: createUserDto.username,
       nickname: createUserDto.nickname,
     });
-    const user = UserDO.create<UserDO>(UserDO, createUserDto);
-    user.md5Password();
-    await this.userRepository.save(user);
+    const userDO = UserDO.create<UserDO>(UserDO, createUserDto);
+    userDO.md5Password();
+    const userPO = this.userFactory.transformDO2PO(userDO);
+    await this.userRepository.save(userPO);
     return '创建成功';
   }
 
@@ -35,21 +40,24 @@ export class UserDomainService {
     }
     const userDO = await this.rebuildUserById(id);
     userDO.update(updateUserDto);
-    await this.userRepository.save(userDO);
+    const userPO = this.userFactory.transformDO2PO(userDO);
+    await this.userRepository.save(userPO);
     return '修改成功';
   }
 
   async disable(id: number) {
     const userDO = await this.rebuildUserById(id);
     userDO.disable();
-    await this.userRepository.save(userDO);
+    const userPO = this.userFactory.transformDO2PO(userDO);
+    await this.userRepository.save(userPO);
     return '停用成功';
   }
 
   async enable(id: number) {
     const userDO = await this.rebuildUserById(id);
     userDO.enable();
-    await this.userRepository.save(userDO);
+    const userPO = this.userFactory.transformDO2PO(userDO);
+    await this.userRepository.save(userPO);
     return '启用成功';
   }
 
