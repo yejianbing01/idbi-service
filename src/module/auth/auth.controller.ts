@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { AuthService } from './domain/auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -15,6 +15,11 @@ export class AuthController {
   @Post('/login')
   login(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
+  }
+
+  @Get('/refresh')
+  refresh(@Query('refreshToken') refreshToken: string) {
+    return this.authService.refreshToken(refreshToken);
   }
 
   @Post('/captcha')

@@ -1,4 +1,9 @@
-import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserService } from 'src/module/user/domain/user.service';
 import { RegisterUserDto } from '../dto/register-user.dto';
 import { CacheService } from 'src/cache/cache.service';
@@ -6,6 +11,7 @@ import { LoginUserDto } from '../dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { md5 } from 'src/lib/utils';
 import { ToolEmailService } from 'src/module/tool/tool-email.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -14,9 +20,10 @@ export class AuthService {
     private cacheService: CacheService,
     private jwtService: JwtService,
     private toolEmailService: ToolEmailService,
+    private configService: ConfigService<Config_jwt>,
   ) {}
 
-  async register(@Body() registerUserDto: RegisterUserDto) {
+  async register(registerUserDto: RegisterUserDto) {
     const cacheCaptcha = await this.cacheService.get<string>(
       registerUserDto.email,
     );
@@ -31,7 +38,7 @@ export class AuthService {
     return '注册成功';
   }
 
-  async login(@Body() loginUserDto: LoginUserDto) {
+  async login(loginUserDto: LoginUserDto) {
     const user = await this.userService.getUser({ email: loginUserDto.email });
     if (!user) {
       throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
@@ -44,6 +51,28 @@ export class AuthService {
       accessToken: this.jwtService.sign({ user }),
       refreshToken: this.jwtService.sign({ user }),
     };
+  }
+
+  async refreshToken(refreshToken: string) {
+    try {
+      const data = this.jwtService.verify<{ id: number }>(refreshToken);
+
+      const user = await this.userService.getUser({ id: data.id });
+
+      const access_token = this.jwtService.sign(user);
+
+      const refresh_token = this.jwtService.sign(user, {
+        expiresIn:
+          this.configService.get('jwt_refresh_token_expres_time') || '7d',
+      });
+
+      return {
+        access_token,
+        refresh_token,
+      };
+    } catch (e) {
+      throw new UnauthorizedException('token 已失效，请重新登录');
+    }
   }
 
   /**
