@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Controller,
-  Get,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -14,16 +13,6 @@ import { storage, uploadPath } from './lib/statics-asserts';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
-  @Get('/cache')
-  async testCache(): Promise<string> {
-    return (await this.appService.testCache()) as string;
-  }
 
   @Post('upload')
   @UseInterceptors(

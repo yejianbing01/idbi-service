@@ -1,6 +1,7 @@
 import { IsNotEmpty, MaxLength } from 'class-validator';
 
 export class UpdateTaskDto {
+  id: number;
   @IsNotEmpty({
     message: '名称不能为空',
   })

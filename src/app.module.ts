@@ -11,6 +11,7 @@ import { UserModule } from './module/user/user.module';
 import { AuthModule } from './module/auth/auth.module';
 import { MyToolModule } from './module/tool/tool.module';
 import { TaskModule } from './module/task/task.module';
+import { TestModule } from './module/test/test.module';
 
 @Module({
   imports: [
@@ -70,6 +71,7 @@ import { TaskModule } from './module/task/task.module';
         };
       },
     }),
+    TestModule,
   ],
   controllers: [AppController],
   providers: [

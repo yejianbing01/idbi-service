@@ -34,7 +34,7 @@ export class TaskDomainService {
     taskDO.start();
     const taskPO = this.taskFactory.transformDO2PO(taskDO);
     await this.taskRepository.save(taskPO);
-    return '修改成功';
+    return '开始成功';
   }
 
   async stop(id: number) {
@@ -42,7 +42,7 @@ export class TaskDomainService {
     taskDO.stop();
     const taskPO = this.taskFactory.transformDO2PO(taskDO);
     await this.taskRepository.save(taskPO);
-    return '修改成功';
+    return '停止成功';
   }
 
   async delete(id: number) {
@@ -50,7 +50,7 @@ export class TaskDomainService {
     taskDO.delete();
     const taskPO = this.taskFactory.transformDO2PO(taskDO);
     await this.taskRepository.save(taskPO);
-    return '修改成功';
+    return '删除成功';
   }
 
   private async checkExist(params: { id?: number; name?: string }) {
@@ -58,7 +58,7 @@ export class TaskDomainService {
     if (name) {
       const existed = await this.taskRepository.checkExist({ name, id });
       if (existed) {
-        BusinessException.throw('用户名已存在');
+        BusinessException.throw('任务已存在');
       }
     }
   }
