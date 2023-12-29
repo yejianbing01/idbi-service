@@ -30,6 +30,6 @@ onMounted(() => {
   <div>
     <h2>SourceEvent 服务端消息推送</h2>
     <p>{{ state.msg }}</p>
-    <pre style="white-space: pre">{{ state.content }}</pre>
+    <!-- <pre style="white-space: pre">{{ state.content }}</pre> -->
   </div>
 </template>

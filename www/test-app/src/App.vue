@@ -1,10 +1,8 @@
-<script setup>
-import SourceEvent from './components/SourceEvent.vue';
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div>
-    <SourceEvent></SourceEvent>
+    <router-view></router-view>
   </div>
 </template>
 
