@@ -16,6 +16,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new FormatSuccessResponseFilter());
 
   registerStaticAsserts(app);
+  app.enableCors();
 
   await app.listen(3000);
 }
