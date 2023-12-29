@@ -20,7 +20,6 @@ export class FormatAllExceptionsFilter implements ExceptionFilter {
     // constructor method, thus we should resolve it here.
     // console.log(exception instanceof BusinessException);
     // console.log(exception instanceof UnauthorizedException);
-    console.log(exception);
 
     const { httpAdapter } = this.httpAdapterHost;
 

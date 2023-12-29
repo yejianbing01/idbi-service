@@ -45,7 +45,6 @@ export class UserController {
   @Get()
   async findUsers(@Query() params: FindUserDto) {
     const res = await this.userService.findUsers(params);
-    console.log(res);
     return res;
   }
 

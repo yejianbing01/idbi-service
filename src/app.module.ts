@@ -11,7 +11,7 @@ import { UserModule } from './module/user/user.module';
 import { AuthModule } from './module/auth/auth.module';
 import { MyToolModule } from './module/tool/tool.module';
 import { TaskModule } from './module/task/task.module';
-import { TestModule } from './module/test/test.module';
+import { ShortUrlModule } from './module/shortUrl/short-url.module';
 
 @Module({
   imports: [
@@ -71,7 +71,7 @@ import { TestModule } from './module/test/test.module';
         };
       },
     }),
-    TestModule,
+    ShortUrlModule,
   ],
   controllers: [AppController],
   providers: [
