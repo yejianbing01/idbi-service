@@ -1,12 +1,36 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/my-service/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "watchAssets": true,
     "assets": [
       "**/*.env"
-    ]
+    ],
+    "webpack": true,
+    "tsConfigPath": "apps/my-service/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/my-service",
+  "projects": {
+    "my-service": {
+      "type": "application",
+      "root": "apps/my-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/my-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/my-service/tsconfig.app.json"
+      }
+    },
+    "meeting-manage": {
+      "type": "application",
+      "root": "apps/meeting-manage",
+      "entryFile": "main",
+      "sourceRoot": "apps/meeting-manage/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/meeting-manage/tsconfig.app.json"
+      }
+    }
   }
 }
