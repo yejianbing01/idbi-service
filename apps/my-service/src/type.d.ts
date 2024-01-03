@@ -30,3 +30,15 @@ type Config_jwt = {
   jwt_access_token_expires_time: string;
   jwt_refresh_token_expres_time: string;
 };
+
+interface FindById {
+  id: number;
+}
+interface Book {
+  id: number;
+  name: string;
+  desc: string;
+}
+interface BookService {
+  findBook(param: FindById): Book;
+}

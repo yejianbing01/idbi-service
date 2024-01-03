@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { UserDO } from 'apps/my-service/src/module/user/domain/user.entity';
 import { Request } from 'express';
-import { UserDO } from '../module/user/domain/user.entity';
 
 declare module 'express' {
   interface Request {

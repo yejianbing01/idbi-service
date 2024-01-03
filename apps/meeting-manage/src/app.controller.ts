@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Query } from '@nestjs/common';
 import { MeetingManageService } from './app.service';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, GrpcMethod } from '@nestjs/microservices';
 import { LibService } from '@app/lib';
 
 @Controller()
@@ -22,5 +22,14 @@ export class MeetingManageController {
   microTest(@Query('num') str: string) {
     const numArr = str.split(',').map((item) => parseInt(item));
     return this.userClient.send('sum', numArr);
+  }
+
+  @GrpcMethod('BookService', 'FindBook')
+  findBook(data: { id: number }) {
+    const items = [
+      { id: 1, name: '前端调试通关秘籍', desc: '网页和 node 调试' },
+      { id: 2, name: 'Nest 通关秘籍', desc: 'Nest 和各种后端中间件' },
+    ];
+    return items.find(({ id }) => id === data.id);
   }
 }

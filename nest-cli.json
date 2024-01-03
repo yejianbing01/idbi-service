@@ -6,7 +6,8 @@
     "deleteOutDir": true,
     "watchAssets": true,
     "assets": [
-      "**/*.env"
+      "**/*.env",
+      "**/*.proto"
     ],
     "webpack": true,
     "tsConfigPath": "apps/my-service/tsconfig.app.json"

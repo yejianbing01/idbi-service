@@ -13,6 +13,8 @@ import { TaskModule } from './module/task/task.module';
 import { ShortUrlModule } from './module/shortUrl/short-url.module';
 import { EventSourceModule } from './module/event-source/event-source.module';
 import { LoginGuard } from 'lib/login.guard';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -74,6 +76,17 @@ import { LoginGuard } from 'lib/login.guard';
     }),
     ShortUrlModule,
     EventSourceModule,
+    ClientsModule.register([
+      {
+        name: 'BOOK_PACKAGE',
+        transport: Transport.GRPC,
+        options: {
+          url: 'localhost:3108',
+          package: 'book',
+          protoPath: join(__dirname, '../../../config/book/book.proto'),
+        },
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [
