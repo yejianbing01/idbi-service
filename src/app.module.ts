@@ -13,6 +13,7 @@ import { MyToolModule } from './module/tool/tool.module';
 import { TaskModule } from './module/task/task.module';
 import { ShortUrlModule } from './module/shortUrl/short-url.module';
 import { EventSourceModule } from './module/event-source/event-source.module';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -74,6 +75,15 @@ import { EventSourceModule } from './module/event-source/event-source.module';
     }),
     ShortUrlModule,
     EventSourceModule,
+    ClientsModule.register([
+      {
+        name: 'USER_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          port: 8888,
+        },
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [
