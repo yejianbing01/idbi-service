@@ -1,4 +1,4 @@
-import { md5 } from 'apps/my-service/src/lib/utils';
+import { md5 } from 'lib/utils';
 import { BaseDO } from '../../base/base.entity';
 import { RoleDO } from '../../role/domain/role.entity';
 import { UpdateUserDto } from '../dto/update-user.dto';

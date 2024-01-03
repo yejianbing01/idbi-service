@@ -31,6 +31,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/meeting-manage/tsconfig.app.json"
       }
+    },
+    "lib": {
+      "type": "library",
+      "root": "libs/lib",
+      "entryFile": "index",
+      "sourceRoot": "libs/lib/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/lib/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -10,8 +10,8 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
-import { RequireLogin } from '../../lib/custom.decorater';
 import { UserService } from './domain/user.service';
+import { RequireLogin } from 'lib/custom.decorater';
 
 @Controller('user')
 export class UserController {

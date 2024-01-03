@@ -3,7 +3,7 @@ import { TaskRepository } from '../repository/task.repository';
 import { TaskFactory } from './task.factory';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
-import { BusinessException } from 'apps/my-service/src/lib/business.exception';
+import { BusinessException } from 'lib/business.exception';
 
 @Injectable()
 export class TaskDomainService {

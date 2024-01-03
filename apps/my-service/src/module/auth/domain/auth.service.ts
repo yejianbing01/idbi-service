@@ -4,10 +4,10 @@ import { LoginUserDto } from '../dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { CacheService } from 'apps/my-service/src/cache/cache.service';
-import { BusinessException } from 'apps/my-service/src/lib/business.exception';
-import { md5 } from 'apps/my-service/src/lib/utils';
 import { ToolEmailService } from '../../tool/tool-email.service';
 import { UserService } from '../../user/domain/user.service';
+import { BusinessException } from 'lib/business.exception';
+import { md5 } from 'lib/utils';
 
 @Injectable()
 export class AuthService {

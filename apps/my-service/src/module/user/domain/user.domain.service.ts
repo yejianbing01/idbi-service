@@ -5,8 +5,8 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { FindUserDto } from '../dto/find-user.dto';
 import { GetUserDto } from '../dto/get-user.dto';
 import { UserFactory } from './user.factory';
-import { BusinessException } from 'apps/my-service/src/lib/business.exception';
 import { UserRepository } from './repository/user.repository';
+import { BusinessException } from 'lib/business.exception';
 
 @Injectable()
 export class UserDomainService {

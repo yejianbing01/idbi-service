@@ -6,13 +6,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MyCacheModule } from './cache/cache.module';
-import { LoginGuard } from './lib/login.guard';
 import { UserModule } from './module/user/user.module';
 import { AuthModule } from './module/auth/auth.module';
 import { MyToolModule } from './module/tool/tool.module';
 import { TaskModule } from './module/task/task.module';
 import { ShortUrlModule } from './module/shortUrl/short-url.module';
 import { EventSourceModule } from './module/event-source/event-source.module';
+import { LoginGuard } from 'lib/login.guard';
 
 @Module({
   imports: [

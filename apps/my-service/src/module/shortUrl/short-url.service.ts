@@ -4,8 +4,8 @@ import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { UniqueCode } from './entities/UniqueCode';
 import { ShortLongMap } from './entities/ShortLongMap';
-import { generateRandomBase62Str } from '../../lib/utils';
-import { BusinessException } from '../../lib/business.exception';
+import { BusinessException } from 'lib/business.exception';
+import { generateRandomBase62Str } from 'lib/utils';
 
 @Injectable()
 export class ShortUrlService {

@@ -4,7 +4,7 @@ import { AuthService } from './domain/auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { randomUUID } from 'crypto';
 import * as qrcode from 'qrcode';
-import { BusinessException } from '../../lib/business.exception';
+import { BusinessException } from 'lib/business.exception';
 
 interface QrCodeInfo {
   status:
