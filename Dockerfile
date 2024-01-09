@@ -1,4 +1,4 @@
-FROM node:16.20.2-alpine as build-stage
+FROM node:20-alpine3.18 as build-stage
 
 ARG app_name
 
@@ -13,7 +13,7 @@ RUN pnpm install --repository=https://registry.npm.taobao.org
 RUN pnpm run build
 
 # production stage
-FROM node:16.20.2-alpine as production-stage
+FROM node:20-alpine3.18 as production-stage
 
 COPY --from=build-stage /app/dist/apps /app
 COPY --from=build-stage /app/package.json /app/package.json
