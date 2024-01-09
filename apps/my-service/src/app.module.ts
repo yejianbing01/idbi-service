@@ -25,7 +25,7 @@ import { join } from 'path';
     MyToolModule.register({ name: 'idbi' }),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: 'apps/my-service/src/.env',
+      envFilePath: join(__dirname, '.env'),
     }),
     JwtModule.registerAsync({
       global: true,
