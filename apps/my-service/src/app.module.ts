@@ -83,7 +83,7 @@ import { join } from 'path';
         options: {
           url: 'localhost:3108',
           package: 'book',
-          protoPath: join(__dirname, '../../../config/book/book.proto'),
+          protoPath: join(__dirname, './proto/book/book.proto'),
         },
       },
     ]),
