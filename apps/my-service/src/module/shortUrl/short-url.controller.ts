@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Query, Redirect } from '@nestjs/common';
+import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { ShortUrlService } from './short-url.service';
+import type { Response } from 'express';
 
 @Controller('s')
 export class ShortUrlController {
@@ -11,12 +12,8 @@ export class ShortUrlController {
   }
 
   @Get(':code')
-  @Redirect()
-  async jump(@Param('code') shortUrl: string) {
+  async jump(@Param('code') shortUrl: string, @Res() res: Response) {
     const longUrl = await this.shortUrlService.getLongUrl(shortUrl);
-    return {
-      url: longUrl,
-      statusCode: 302,
-    };
+    return res.status(302).redirect(longUrl);
   }
 }

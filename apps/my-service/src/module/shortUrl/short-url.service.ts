@@ -23,7 +23,8 @@ export class ShortUrlService {
     const uniqueCode = new UniqueCode();
     uniqueCode.code = str;
     uniqueCode.status = 0;
-    return await this.entityManager.insert(UniqueCode, uniqueCode);
+    await this.entityManager.insert(UniqueCode, uniqueCode);
+    return uniqueCode;
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_4AM)
