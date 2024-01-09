@@ -6,9 +6,9 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm install pnpm -g --repository=https://registry.npm.taobao.org
+RUN npm install pnpm -g
 
-RUN pnpm install --repository=https://registry.npm.taobao.org
+RUN pnpm install
 
 RUN pnpm run build
 
@@ -20,9 +20,9 @@ COPY --from=build-stage /app/package.json /app/package.json
 
 WORKDIR /app/${app_name}
 
-RUN npm install pnpm -g --repository=https://registry.npm.taobao.org
+RUN npm install pnpm -g
 
-RUN pnpm install --repository=https://registry.npm.taobao.org
+RUN pnpm install
 
 RUN pnpm install --production
 
