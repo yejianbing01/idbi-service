@@ -20,11 +20,11 @@ ARG app_name=my-service
 COPY --from=build-stage /app/dist /app
 COPY --from=build-stage /app/package.json /app/package.json
 
-WORKDIR /app/apps/$app_name
-
+WORKDIR /app
 RUN npm install pnpm -g
-
 RUN pnpm install --production
+
+WORKDIR /app/apps/$app_name
 
 EXPOSE 3000
 
