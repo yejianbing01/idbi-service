@@ -22,10 +22,8 @@ WORKDIR /app/${app_name}
 
 RUN npm install pnpm -g
 
-RUN pnpm install
-
 RUN pnpm install --production
 
 EXPOSE 3000
 
-CMD ["node", "/main.js"]
+CMD ["node", "./main.js"]
