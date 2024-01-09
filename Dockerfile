@@ -6,9 +6,11 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm install
+RUN npm install pnpm -g
 
-RUN npm run build
+RUN pnpm install
+
+RUN pnpm run build
 
 # production stage
 FROM node:16.20.2-alpine as production-stage
@@ -18,7 +20,11 @@ COPY --from=build-stage /app/package.json /app/package.json
 
 WORKDIR /app/${app_name}
 
-RUN npm install --production
+RUN npm install pnpm -g
+
+RUN pnpm install
+
+RUN pnpm install --production
 
 EXPOSE 3000
 
